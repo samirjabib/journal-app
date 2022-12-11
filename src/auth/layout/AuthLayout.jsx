@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 
 
-export const AuthLayout = ({ children, title = '' }) => {
+export const AuthLayout = ({ children, title = '' }) => { //Creamos un HOC el cual usaremos de layout para envolver nuestro componente de login y register
   return (
     
     <Grid

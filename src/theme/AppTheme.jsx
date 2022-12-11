@@ -4,12 +4,10 @@ import { CssBaseline } from '@mui/material';
 import { purpleTheme } from './';
 
 
-export const AppTheme = ({ children }) => {
+export const AppTheme = ({ children }) => { //Creamos HOC en el cual vamos a envolver nuestros  componentes
   return (
     <ThemeProvider theme={ purpleTheme }>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      
       { children }
     </ThemeProvider>
   )
