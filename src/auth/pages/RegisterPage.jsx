@@ -1,10 +1,21 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { Google } from '@mui/icons-material';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useForm } from '../hooks';
+
+
+
 
 
 export const RegisterPage = () => {
+
+  const {displayName, email, password, onInputChange } = useForm({
+    displayName,
+    email,
+    password
+  })
+
+
   return (
     <AuthLayout title="Crear cuenta">
       <form>
@@ -16,6 +27,9 @@ export const RegisterPage = () => {
                 type="text" 
                 placeholder='Nombre completo' 
                 fullWidth
+                value={displayName}
+                name='displayName'
+                onChange={onInputChange}
               />
             </Grid>
 
@@ -25,6 +39,9 @@ export const RegisterPage = () => {
                 type="email" 
                 placeholder='correo@google.com' 
                 fullWidth
+                value={email}
+                name='email'
+                onChange={onInputChange}
               />
             </Grid>
 
@@ -34,6 +51,9 @@ export const RegisterPage = () => {
                 type="password" 
                 placeholder='Contraseña' 
                 fullWidth
+                value={password}
+                name='password'
+                onChange={onInputChange}
               />
             </Grid>
             
