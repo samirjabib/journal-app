@@ -3,7 +3,8 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Google } from '@mui/icons-material';
 import { AuthLayout } from '../layout/AuthLayout';
 
-import { useForm } from '../hooks';
+import { useAuthStore, useForm } from '../hooks';
+import { startGoogleSignIn } from '../../store';
 
 
 
@@ -15,7 +16,9 @@ export const LoginPage = () => {
   });
 
 
-  console.log(email, password)
+  const { status, onGoogleSign, errorMessage } = useAuthStore();
+  console.log(status)
+
 
 
   return (
@@ -53,7 +56,11 @@ export const LoginPage = () => {
                 </Button>
               </Grid>
               <Grid item xs={ 12 } sm={ 6 }>
-                <Button variant='contained' fullWidth>
+                <Button 
+                  variant='contained' 
+                  fullWidth
+                  onClick={ onGoogleSign }
+                  >
                   <Google />
                   <Typography sx={{ ml: 1 }}>Google</Typography>
                 </Button>

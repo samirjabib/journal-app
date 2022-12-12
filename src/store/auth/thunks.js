@@ -17,7 +17,7 @@ export const startGoogleSignIn = () => {
         if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
 
         dispatch( onLogin(result));
-        console.log(result)
+        console.log('result in start google signin')
     };
 };
 
