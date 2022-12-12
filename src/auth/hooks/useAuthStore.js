@@ -4,13 +4,16 @@ import { onLogin, onLogout, onCheckingCredentials, startGoogleSignIn } from '../
 
 export const useAuthStore = () => {
 
-    const { status, errorMessage, displayName } = useSelector(state => state.auth);
+    const { status, errorMessage, displayName, photoURL } = useSelector(state => state.auth);
     const dispatch = useDispatch();
+
+    console.log(displayName, status, photoURL)
 
 
     const onGoogleSign = () => {
         console.log('login with google'),
         dispatch( startGoogleSignIn());
+
     }
 
 

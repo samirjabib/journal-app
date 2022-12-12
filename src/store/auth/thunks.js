@@ -13,11 +13,10 @@ export const startGoogleSignIn = () => {
     return async( dispatch ) => {
         dispatch(onCheckingCredentials());
 
-        const result = await signInWithGoogle();
+        const  result  = await signInWithGoogle(); //Recibimos los datos de la funcion los cual pasaremos al payload. 
         if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
 
-        dispatch( onLogin(result));
-        console.log('result in start google signin')
+        dispatch( onLogin(result)); //Enviamos al payload para tener los datos de inicio de secion en la store. 
     };
 };
 

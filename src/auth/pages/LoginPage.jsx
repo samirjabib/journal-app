@@ -17,7 +17,6 @@ export const LoginPage = () => {
 
 
   const { status, onGoogleSign, errorMessage } = useAuthStore();
-  console.log(status)
 
 
 
