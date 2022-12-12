@@ -2,7 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useAuthStore, useForm } from '../hooks';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 
 const formFields = {
@@ -30,6 +30,8 @@ export const RegisterPage = () => {
 
   const { errorMessage, status } = useAuthStore();
 
+  const isChekingAuthentication = useMemo(() => status === 'checking', [status]);
+
 
   const onSubmit = ( event ) => {
     event.preventDefault();
@@ -41,7 +43,10 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title="Crear cuenta">
-      <form onSubmit={onSubmit}>
+      <form 
+        onSubmit={onSubmit}
+        className='animate__animated animate__fadeIn animate__faster'
+        >
           <Grid container>
            
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
@@ -96,7 +101,11 @@ export const RegisterPage = () => {
             
             <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
               <Grid item xs={ 12 }>
-                <Button variant='contained' fullWidth>
+                <Button 
+                  variant='contained' 
+                  fullWidth
+                  disabled={ isChekingAuthentication}
+                  >
                   Crear cuenta
                 </Button>
               </Grid>

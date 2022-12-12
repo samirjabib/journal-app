@@ -7,7 +7,6 @@ export const useAuthStore = () => {
     const { status, errorMessage, displayName, photoURL } = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
-    console.log(displayName, status, photoURL)
 
 
     const onGoogleSign = () => {
