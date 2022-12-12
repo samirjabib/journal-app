@@ -1,7 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
-import { useForm } from '../hooks';
+import { useAuthStore, useForm } from '../hooks';
+import { useState } from 'react';
 
 
 const formFields = {
@@ -20,15 +21,27 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
+  const [ formSubmitted, setFormSubmitted] = useState(false);
+
   const {
     displayName, email, password, onInputChange, isFormValid, 
     displayNameValid, emailValid, passwordValid 
-  } = useForm(formFields, formValidations)
+  } = useForm(formFields, formValidations);
 
+  const { errorMessage, status } = useAuthStore();
+
+
+  const onSubmit = ( event ) => {
+    event.preventDefault();
+    setFormSubmitted(true);
+
+    if ( !isFormValid ) return;
+
+  }
 
   return (
     <AuthLayout title="Crear cuenta">
-      <form>
+      <form onSubmit={onSubmit}>
           <Grid container>
            
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
@@ -40,6 +53,8 @@ export const RegisterPage = () => {
                 value={displayName}
                 name='displayName'
                 onChange={onInputChange}
+                error={ !!displayNameValid && formSubmitted }
+                helperText={displayNameValid}
               />
             </Grid>
 
@@ -52,6 +67,8 @@ export const RegisterPage = () => {
                 value={email}
                 name='email'
                 onChange={onInputChange}
+                error={!!emailValid && formSubmitted}
+                helperText={emailValid}
               />
             </Grid>
 
@@ -64,7 +81,17 @@ export const RegisterPage = () => {
                 value={password}
                 name='password'
                 onChange={onInputChange}
+                error={!!passwordValid && formSubmitted}
+                helperText={passwordValid}
               />
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              display={!!errorMessage ? '' : 'none'}
+            >
+              <Alert severity='error'>{errorMessage}</Alert>
             </Grid>
             
             <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>

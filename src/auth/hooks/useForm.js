@@ -18,7 +18,6 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
         return true;
     }, [ formValidation ])
 
-    console.log(isFormValid)
 
 
     const onInputChange = ({ target }) => {
@@ -45,8 +44,6 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
 
         setFormValidation( formCheckedValues );
     }
-
-
 
     return {
         ...formState,
