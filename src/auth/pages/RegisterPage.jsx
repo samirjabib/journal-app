@@ -4,17 +4,24 @@ import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../hooks';
 
 
+const formFields = {
+    displayName: "",
+    email :"",
+    password :""
+  
+}
 
+const formValidations = {
+  email:[ (value)  => value.includes('@'), 'The email must contain a @'],
+  password: [ (value) => value.length >= 6, 'Password must contain 6 letters or more.'],
+  displayName: [ (value) => value.length >= 1, 'The name is required '],
+}
 
 
 export const RegisterPage = () => {
 
-  const {displayName, email, password, onInputChange } = useForm({
-    displayName,
-    email,
-    password
-  })
-
+  const {displayName, email, password, onInputChange } = useForm(formFields, formValidations)
+  console.log(displayName, email, password)
 
   return (
     <AuthLayout title="Crear cuenta">
