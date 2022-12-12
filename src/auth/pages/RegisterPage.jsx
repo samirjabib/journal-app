@@ -20,8 +20,11 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
-  const {displayName, email, password, onInputChange } = useForm(formFields, formValidations)
-  console.log(displayName, email, password)
+  const {
+    displayName, email, password, onInputChange, isFormValid, 
+    displayNameValid, emailValid, passwordValid 
+  } = useForm(formFields, formValidations)
+
 
   return (
     <AuthLayout title="Crear cuenta">

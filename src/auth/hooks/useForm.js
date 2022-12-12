@@ -1,58 +1,52 @@
 import { useEffect, useMemo, useState } from 'react';
 
-
-export const useForm = (initialForm = {},  formValidations = {} ) => {
-
-
-    const [ formState, setFormState ] = useState(initialForm);
+export const useForm = ( initialForm = {}, formValidations = {}) => {
+  
+    const [ formState, setFormState ] = useState( initialForm );
     const [ formValidation, setFormValidation ] = useState({});
 
-    useEffect( () => {
-        createValidators(); //Con esta funcion hacemos que cada vez que cambie el form , nosotros volvemos a correr la funcion de los validadores
+    useEffect(() => {
+        createValidators();
     }, [ formState ])
-
-    useEffect( () => {
-        setFormState(initialForm); //
-    }, [])
     
+    const isFormValid = useMemo( () => {
 
-    const isFormValid = useMemo( () => { //Con esta funcion vamos a chekear si ahi algun campo de nuestro form que falte por completar
-        for(const formValue of Object.keys( formValidation )) {
-            if( formValidation(formValue) !== null) return false; //Regresamos form para indicar que faltan acciones por llenar
+        for (const formValue of Object.keys( formValidation )) {
+            if ( formValidation[formValue] !== null ) return false;
         }
 
-        return true; //Regresamos true si nuestro fromValidation esta vacio. 
-    }, [ formValidation]) //Esta se renderiza cada vez que cambia nuestra aplicacion.
+        return true;
+    }, [ formValidation ])
 
-    const createValidators = () => {
-
-        const formCheckedValues = {};
-
-        for( const formField of Object.keys( formValidation )){ 
-                                                                /* 
-                                                                    iteramos sobre nuestro objeto con las validaciones, 
-        
-                                                                */
-            const [ fn, errorMessage ] = formValidation[formField];   //Desectructuramos las propiedades del formValidation, basados en el formField(actual iteracion).
-
-            formCheckedValues[`${formField}Valid`] = fn(formState[formField]) ? null : errorMessage; // Creamos la propiedad que va a contener nuestros valores
-        }
+    console.log(isFormValid)
 
 
-        setFormValidation( formCheckedValues ); //Enviamos nuestars validaciones al form validation.
-    }
-
-    const onInputChange = ( {target }) => { //Extraemos el value del target de nuestros input. 
+    const onInputChange = ({ target }) => {
         const { name, value } = target;
         setFormState({
             ...formState,
-            [name] : value
+            [ name ]: value
         });
-    };
+    }
 
     const onResetForm = () => {
-        setFormState(initialForm);
-    };
+        setFormState( initialForm );
+    }
+
+    const createValidators = () => {
+        
+        const formCheckedValues = {};
+        
+        for (const formField of Object.keys( formValidations )) {
+            const [ fn, errorMessage ] = formValidations[formField];
+
+            formCheckedValues[`${ formField }Valid`] = fn( formState[formField] ) ? null : errorMessage;
+        }
+
+        setFormValidation( formCheckedValues );
+    }
+
+
 
     return {
         ...formState,
@@ -60,12 +54,7 @@ export const useForm = (initialForm = {},  formValidations = {} ) => {
         onInputChange,
         onResetForm,
 
-
         ...formValidation,
         isFormValid
-        
     }
-
-
-
 }
