@@ -46,10 +46,7 @@ export const startLoginWithEmailAndPasssword = ({ email, password}) => {
 
 export const startLogout = () => {
     return async(dispatch) => {
-
-        await logoutFirebase(); 
-
-    
-        dispatch(onLogout());
+        await logoutFirebase();  //Usamos la funcion de deslogear de firebase
+        dispatch(onLogout()); //invocamos la funcion de deslogear que resetearemos el payload
     }
 };

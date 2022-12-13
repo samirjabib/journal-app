@@ -32,7 +32,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
             <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                 <Typography variant='h6' noWrap component='div'> JournalApp </Typography>
 
-                <IconButton color='error' onClick={ startLogout }>
+                <IconButton color='error' onClick={ startLogout() }>
                     <LogoutOutlined />
                 </IconButton>
             </Grid>

@@ -28,7 +28,7 @@ export const authSlice = createSlice({
             state.email = null;
             state.displayName = null;
             state.photoURL = null;
-            state.errorMessage = payload?.errorMessage;
+            state.errorMessage = payload?.errorMessage; //usamos el encadenamiento opcional para evitar el error al deslogear de la app.
         },
         onCheckingCredentials : ( state ) => {
             state.status = 'checking';
