@@ -39,8 +39,6 @@ export const startLoginWithEmailAndPasssword = ({ email, password}) => {
         const result = await loginWithEmailPassword({email, password}); //Enviamos los datos hacia la funcion para que nos retorne el resultado. 
         if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
 
-        console.log(result,'result of login')
-
 
         dispatch(onLogin(result)); //enviamos el resultado hacia el payload
     }

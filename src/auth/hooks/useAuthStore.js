@@ -13,8 +13,8 @@ export const useAuthStore = () => {
         dispatch( startGoogleSignIn());
     }
 
-    const onLoginEmailAndPassword = ({email, password}) => {
-        dispatch(startLoginWithEmailAndPasssword(email, password));
+    const onLoginEmailAndPassword = (formState) => {
+        dispatch(startLoginWithEmailAndPasssword(formState));
     }
 
     const onRegisterWithEmailAndPassword = (formState) => {

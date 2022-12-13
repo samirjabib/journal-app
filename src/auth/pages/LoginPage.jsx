@@ -5,24 +5,42 @@ import { AuthLayout } from '../layout/AuthLayout';
 
 import { useAuthStore, useForm } from '../hooks';
 import { startGoogleSignIn } from '../../store';
+import { useState } from 'react';
 
+
+
+const formValidations = {
+  email:[ (value)  => value.includes('@'), 'The email must contain a @'],
+  password: [ (value) => value.length >= 6, 'Password must contain 6 letters or more.'],
+}
+
+const formFields = {
+  email :"",
+  password :""
+
+}
 
 
 export const LoginPage = () => {
 
-  const { email, password, onInputChange} = useForm({
-    email:'',
-    password:'',
-  });
+  const { email, password, formState, onInputChange, emailValid, passwordValid , isFormValid} = useForm(formFields, formValidations);
 
+  const [ formSubmitted, setFormSubmitted] = useState(false);
 
-  const { status, onGoogleSign, errorMessage } = useAuthStore();
+  const { status, onGoogleSign, errorMessage, onLoginEmailAndPassword,  } = useAuthStore();
+  console.log(status)
 
+  const onSubmit = (event) => {
+    event.preventDefault()
+    setFormSubmitted(true);
+    if(!isFormValid) return;
+    onLoginEmailAndPassword(formState)
+  }
 
 
   return (
     <AuthLayout title="Login">
-      <form>
+      <form onSubmit={ onSubmit }>
           <Grid container>
             <Grid item xs={ 12 } sx={{ mt: 2 }}>
               <TextField 
@@ -33,6 +51,9 @@ export const LoginPage = () => {
                 name='email'
                 value={email}
                 onChange={onInputChange}
+                error={!!emailValid && formSubmitted}
+                helperText={emailValid}
+
               />
             </Grid>
 
@@ -45,12 +66,18 @@ export const LoginPage = () => {
                 name='password'
                 value={password}
                 onChange={ onInputChange}
+                error={!!passwordValid && formSubmitted}
+                helperText={passwordValid}
               />
             </Grid>
             
             <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
               <Grid item xs={ 12 } sm={ 6 }>
-                <Button variant='contained' fullWidth>
+                <Button 
+                  variant='contained' 
+                  fullWidth
+                  type='submit'
+                >
                   Login
                 </Button>
               </Grid>

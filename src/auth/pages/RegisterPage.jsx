@@ -106,7 +106,7 @@ export const RegisterPage = () => {
                   variant='contained' 
                   fullWidth
                   type="submit"
-                  // disabled={ isChekingAuthentication}
+                  disabled={ isChekingAuthentication}
                   >
                   Crear cuenta
                 </Button>
