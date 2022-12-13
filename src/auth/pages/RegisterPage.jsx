@@ -25,10 +25,11 @@ export const RegisterPage = () => {
 
   const {
     displayName, email, password, onInputChange, isFormValid, 
-    displayNameValid, emailValid, passwordValid 
+    displayNameValid, emailValid, passwordValid, formState
   } = useForm(formFields, formValidations);
 
-  const { errorMessage, status } = useAuthStore();
+
+  const { errorMessage, status, onRegisterWithEmailAndPassword } = useAuthStore();
 
   const isChekingAuthentication = useMemo(() => status === 'checking', [status]);
 
@@ -36,16 +37,16 @@ export const RegisterPage = () => {
   const onSubmit = ( event ) => {
     event.preventDefault();
     setFormSubmitted(true);
-
     if ( !isFormValid ) return;
+    onRegisterWithEmailAndPassword(formState)
 
   }
 
   return (
     <AuthLayout title="Crear cuenta">
       <form 
-        onSubmit={onSubmit}
         className='animate__animated animate__fadeIn animate__faster'
+        onSubmit={ onSubmit }
         >
           <Grid container>
            
@@ -104,7 +105,8 @@ export const RegisterPage = () => {
                 <Button 
                   variant='contained' 
                   fullWidth
-                  disabled={ isChekingAuthentication}
+                  type="submit"
+                  // disabled={ isChekingAuthentication}
                   >
                   Crear cuenta
                 </Button>

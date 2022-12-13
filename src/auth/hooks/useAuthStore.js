@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onLogin, onLogout, onCheckingCredentials, startGoogleSignIn } from '../../store';
+import { startGoogleSignIn, startLoginWithEmailAndPasssword, startRegisterWithEmailAndPassword, startLogout} from '../../store';
 
 
 export const useAuthStore = () => {
@@ -10,11 +10,21 @@ export const useAuthStore = () => {
 
 
     const onGoogleSign = () => {
-        console.log('login with google'),
         dispatch( startGoogleSignIn());
-
     }
 
+    const onLoginEmailAndPassword = ({email, password}) => {
+        dispatch(startLoginWithEmailAndPasssword(email, password));
+    }
+
+    const onRegisterWithEmailAndPassword = (formState) => {
+        dispatch( startRegisterWithEmailAndPassword(formState))
+    }
+
+
+    const onLogout = () => {
+        dispatch(startLogout());
+    }
 
     return{
         //Propierties
@@ -23,7 +33,10 @@ export const useAuthStore = () => {
         displayName,
 
         //Methods
-        onGoogleSign
+        onGoogleSign,
+        onLogout,
+        onLoginEmailAndPassword,
+        onRegisterWithEmailAndPassword,
     }
 
 }

@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { signInWithGoogle, registerUserWithEmailAndPassword, loginWithEmailPassword, logoutFirebase } from "../../firebase";
 import { onCheckingCredentials, onLogout, onLogin } from "./authSlice";
 
@@ -27,6 +26,7 @@ export const startRegisterWithEmailAndPassword = ({displayName, email, password}
 
         const result = await registerUserWithEmailAndPassword({displayName, email, password}); //Enviamos los datos hacia la funcion para que nos retorne el resultado. 
         if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
+        console.log(result,'result of register')
 
         dispatch( onLogin(result)); //enviamos el resultado hacia el payload
     }
@@ -39,7 +39,19 @@ export const startLoginWithEmailAndPasssword = ({ email, password}) => {
         const result = await loginWithEmailPassword({email, password}); //Enviamos los datos hacia la funcion para que nos retorne el resultado. 
         if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
 
+        console.log(result,'result of login')
+
+
         dispatch(onLogin(result)); //enviamos el resultado hacia el payload
     }
+;}
 
-}
+export const startLogout = () => {
+    async(dispatch) => {
+
+        await logoutFirebase(); 
+
+    
+        dispatch(onLogout());
+    }
+};
