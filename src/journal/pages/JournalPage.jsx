@@ -10,7 +10,7 @@ export const JournalPage = () => {
       
 
       <NothingSelectedView />
-      {/* <NoteView /> */}
+      <NoteView />
 
 
       <IconButton

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { startGoogleSignIn, startLoginWithEmailAndPasssword, startRegisterWithEmailAndPassword, startLogout} from '../../store';
+import { startGoogleSignIn, startLoginWithEmailAndPasssword, startRegisterWithEmailAndPassword, startLogout, } from '../../store';
 
 
 export const useAuthStore = () => {
@@ -34,7 +34,7 @@ export const useAuthStore = () => {
 
         //Methods
         onGoogleSign,
-        onLogout,
+        startLogout,
         onLoginEmailAndPassword,
         onRegisterWithEmailAndPassword,
     }

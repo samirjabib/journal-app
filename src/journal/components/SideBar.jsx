@@ -1,7 +1,13 @@
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import { TurnedInNot } from '@mui/icons-material';
+import { useAuthStore } from '../../auth/hooks';
 
 export const SideBar = ({ drawerWidth = 240 }) => {
+
+    const { displayName } = useAuthStore();
+    
+    console.log(displayName)
+
   return (
     <Box
         component='nav'
@@ -17,7 +23,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
         >
             <Toolbar>
                 <Typography variant='h6' noWrap component='div'>
-                    Samir Jabib
+                    {displayName}
                 </Typography>
             </Toolbar>
             <Divider />

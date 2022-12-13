@@ -1,8 +1,17 @@
 import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
+import { useAuthStore } from '../../auth/hooks';
 
 
 export const NavBar = ({ drawerWidth = 240 }) => {
+
+
+    const { startLogout  , status} = useAuthStore();
+
+    console.log(status)
+
+
+
   return (
     <AppBar 
         position='fixed'
@@ -23,7 +32,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
             <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                 <Typography variant='h6' noWrap component='div'> JournalApp </Typography>
 
-                <IconButton color='error'>
+                <IconButton color='error' onClick={ startLogout }>
                     <LogoutOutlined />
                 </IconButton>
             </Grid>

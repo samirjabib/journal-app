@@ -45,7 +45,7 @@ export const startLoginWithEmailAndPasssword = ({ email, password}) => {
 ;}
 
 export const startLogout = () => {
-    async(dispatch) => {
+    return async(dispatch) => {
 
         await logoutFirebase(); 
 
