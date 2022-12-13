@@ -1,4 +1,5 @@
-import { signInWithGoogle } from "../../firebase";
+import { async } from "@firebase/util";
+import { signInWithGoogle, registerUserWithEmailAndPassword, loginWithEmailPassword, logoutFirebase } from "../../firebase";
 import { onCheckingCredentials, onLogout, onLogin } from "./authSlice";
 
 
@@ -20,4 +21,25 @@ export const startGoogleSignIn = () => {
     };
 };
 
+export const startRegisterWithEmailAndPassword = ({displayName, email, password}) => {
+    return async( dispatch ) => {
+        dispatch(onCheckingCredentials());
 
+        const result = await registerUserWithEmailAndPassword({displayName, email, password}); //Enviamos los datos hacia la funcion para que nos retorne el resultado. 
+        if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
+
+        dispatch( onLogin(result)); //enviamos el resultado hacia el payload
+    }
+}
+
+export const startLoginWithEmailAndPasssword = ({ email, password}) => {
+    return async( dispatch) => {
+        dispatch(onCheckingCredentials());
+
+        const result = await loginWithEmailPassword({email, password}); //Enviamos los datos hacia la funcion para que nos retorne el resultado. 
+        if(result.status === 'failed') return dispatch(onLogout(result.errorMessage));
+
+        dispatch(onLogin(result)); //enviamos el resultado hacia el payload
+    }
+
+}
