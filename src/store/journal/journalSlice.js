@@ -18,7 +18,7 @@ export const jorunalSlice = createSlice({
             state.notes.push( payload ); //Agregamos la nueva nota al arreglo con el metodo push
             state.isSaving = false;
         },
-        setActiveNotes: (state, { payload }) => {
+        setActiveNote: (state, { payload }) => {
             state.active = payload; 
             state.messageSaved = '';
         },
@@ -47,7 +47,7 @@ export const jorunalSlice = createSlice({
 export const {
     addNewEmptyNote,
     savingNewNotes,
-    setActiveNotes,
+    setActiveNote,
     setNotes,
     setSaving,
     updateNote,
