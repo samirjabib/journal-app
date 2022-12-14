@@ -18,5 +18,6 @@ const firebaseConfig = {
 export const FirebaseApp = initializeApp(firebaseConfig); //Configuramos la base de datos
 export const firebaseAuth = getAuth(FirebaseApp); //Obtenemos el metodo para ultilizar la Auth de uestra base de datos.
 export const firebaseDB = getFirestore( FirebaseApp); //Obtenemos nuestros datos de nuestra App con este metodo de firebase. 
+console.log(firebaseDB)
 
 

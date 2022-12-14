@@ -22,14 +22,14 @@ const formValidations = {
 export const RegisterPage = () => {
 
   const [ formSubmitted, setFormSubmitted] = useState(false);
+  
+  const { errorMessage, status, onRegisterWithEmailAndPassword } = useAuthStore();
 
   const {
     displayName, email, password, onInputChange, isFormValid, 
     displayNameValid, emailValid, passwordValid, formState
   } = useForm(formFields, formValidations);
 
-
-  const { errorMessage, status, onRegisterWithEmailAndPassword } = useAuthStore();
 
   const isChekingAuthentication = useMemo(() => status === 'checking', [status]);
 

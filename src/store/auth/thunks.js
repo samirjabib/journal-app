@@ -1,7 +1,6 @@
 import { signInWithGoogle, registerUserWithEmailAndPassword, loginWithEmailPassword, logoutFirebase } from "../../firebase";
 import { onCheckingCredentials, onLogout, onLogin } from "./authSlice";
 
-
 export const checkingAuthentication = () => {
     return async( dispatch) => {
         dispatch(onCheckingCredentials());

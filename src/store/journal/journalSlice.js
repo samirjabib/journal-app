@@ -1,8 +1,7 @@
-import { Satellite } from '@mui/icons-material';
 import { createSlice } from '@reduxjs/toolkit';
 
 
-export const jorunalSlice = createSlice({
+export const journalSlice = createSlice({
     name:'journal',
     initialState:{
         isSaving:false,
@@ -51,4 +50,4 @@ export const {
     setNotes,
     setSaving,
     updateNote,
-} = jorunalSlice.actions;
+} = journalSlice.actions; //exportamos las acciones para usarlas en el thunk

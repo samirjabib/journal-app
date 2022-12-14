@@ -7,8 +7,6 @@ import { CheckingAuth } from '../ui';
 
 
 
-
-
 export const AppRouter = () => {
 
 

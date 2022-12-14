@@ -8,7 +8,6 @@ export const NavBar = ({ drawerWidth = 240 }) => {
 
     const { startLogout  , status} = useAuthStore();
 
-    console.log(status)
 
 
 

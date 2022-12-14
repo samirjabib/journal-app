@@ -1,27 +1,33 @@
-import { addNewEmptyNote, jorunalSlice, savingNewNotes, setActiveNote, setNotes, setSaving, updateNote } from './journalSlice';
-import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
+import { addNewEmptyNote, savingNewNotes, setActiveNote, } from './journalSlice';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from '../../firebase';
 
 
-export const starNewNote = () => {
-    return async(dispatch) => {
+export const startNewNote = () => {
+    
+    return async(dispatch, getState) => { //Usamos la otra funcion del thunk para acceder a el estado actual de la store 
         dispatch( savingNewNotes());
 
-        const { uid } = getState().auth
-
-        const newNote = {
+        const { uid } = getState().auth //Extraemos el id del el auth actual de la aplicacion.
+ 
+        const newNote = { //Creamos la nueva nota 
             title:'',
             body:'',
             date: new Date().getTime(),
         };
 
-        const newDoc = doc( collection( firebaseDB, `${ uid }/journal/notes`));
-        await setDoc (newDoc, newNote);
+        const newDoc = doc( collection( firebaseDB, `${ uid }/journal/notes`) ); // doc recibe como parametro la coleccion, la cual recibe la db y el path que queremos que tenga nuestra coleccion
+        await setDoc( newDoc, newNote );
 
-        newNote.id = newDoc.id
+        newNote.id = newDoc.id 
 
-        dispatch( addNewEmptyNote(newNote));
-        dispatch( setActiveNote(newNote))
+        dispatch( addNewEmptyNote(newNote)); //Añadimos la nueva nota
+        dispatch( setActiveNote(newNote)) //Colocamos como activa esta. 
+        console.log('hice submit a la note hacia el payload.')
 
     }
-}
+};
+
+
+
+

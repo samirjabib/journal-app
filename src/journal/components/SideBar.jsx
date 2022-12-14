@@ -6,7 +6,6 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
     const { displayName } = useAuthStore();
     
-    console.log(displayName)
 
   return (
     <Box
