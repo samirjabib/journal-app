@@ -7,12 +7,15 @@ import { startNewNote  } from '../../store'
 export const useJournalStore = () => {
 
     const dispatch = useDispatch();
-    const { isSaving, active, notes } = useSelector( state => state.journal )
+    const { isSaving, active, notes, setActiveNote } = useSelector( state => state.journal )
 
 
     const onClickNewNote = () => {
         dispatch( startNewNote() )
-        console.log('hice submit a la note hacia el thunk')
+    }
+
+    const onClickActiveNote = ({title, body, id, date, imageUrls}) => {
+        dispatch(setActiveNote({title, body, id, date, imageUrls}));
     }
 
 
@@ -25,5 +28,6 @@ export const useJournalStore = () => {
 
         //Methods
         onClickNewNote,
+        onClickActiveNote,
     }
 }

@@ -12,17 +12,12 @@ export const JournalPage = () => {
   return (
     <JournalLayout className='animate__animated animate__fadeIn animate__faster'>
       
-
-
       {
         (!!active) // el operador !! transforma un objeto en un valor booleano
           ? <NoteView />
           : <NothingSelectedView /> 
       }
       
-      
-
-
       <IconButton
         size='large'
         onClick={ onClickNewNote }

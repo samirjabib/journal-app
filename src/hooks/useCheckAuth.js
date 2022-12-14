@@ -19,7 +19,7 @@ export const useCheckAuth = () => {
 
             const { uid, email, displayName, photoURL } = user;
             dispatch( onLogin({ uid, email, displayName, photoURL }) );
-            dispatch(startLoadingNotes())
+            dispatch(startLoadingNotes()) //Despachamos la carga de notas, cuando el status de la sesion cambia. 
         });
     }, []);
 
