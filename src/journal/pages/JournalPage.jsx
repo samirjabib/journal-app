@@ -22,7 +22,7 @@ export const JournalPage = () => {
 
 
       {
-        (!!active)
+        (!!active) // el operador !! transforma un objeto en un valor booleano
           ? <NoteView />
           : <NothingSelectedView /> 
       }
