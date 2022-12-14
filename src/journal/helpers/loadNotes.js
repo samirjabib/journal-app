@@ -6,7 +6,6 @@ export const loadNotes = async( uid= '') => { //Recibimos por parametros el uid
 
     const coleccionRef = collection( firebaseDB, `${ uid }/journal/notes`  ); //buscamos en la db, pasandole la ruta dinamica con el uid del user para encontrar las notes.
     const docs = await getDocs(coleccionRef); //obtenemos la coleccion y la guardamos en una variable
-
     const notes = [];
     docs.forEach( doc => { 
         notes.push({ id: doc.id, ...doc.data}); //mediante el spread operator enviamos a el arreglo vacio notes, lo obtenido en docs, para darle una nueva estructura

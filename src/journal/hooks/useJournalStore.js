@@ -7,7 +7,7 @@ import { startNewNote  } from '../../store'
 export const useJournalStore = () => {
 
     const dispatch = useDispatch();
-    const { isSaving, active } = useSelector( state => state.journal )
+    const { isSaving, active, notes } = useSelector( state => state.journal )
 
 
     const onClickNewNote = () => {
@@ -21,6 +21,7 @@ export const useJournalStore = () => {
         //Propietes
         isSaving,
         active,
+        notes,
 
         //Methods
         onClickNewNote,

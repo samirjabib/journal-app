@@ -28,7 +28,6 @@ export const LoginPage = () => {
   const [ formSubmitted, setFormSubmitted] = useState(false);
 
   const { status, onGoogleSign, errorMessage, onLoginEmailAndPassword,  } = useAuthStore();
-  console.log(status)
 
   const onSubmit = (event) => {
     event.preventDefault()

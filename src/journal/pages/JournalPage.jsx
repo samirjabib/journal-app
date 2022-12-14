@@ -8,13 +8,6 @@ import { useJournalStore } from '../hooks/useJournalStore';
 export const JournalPage = () => {
 
   const { onClickNewNote, isSaving, active } = useJournalStore();
-
-
-  console.log(active, "active one")
-  console.log(!active, "active two")
-  console.log(!!active, "active three")
-
-
   
   return (
     <JournalLayout className='animate__animated animate__fadeIn animate__faster'>

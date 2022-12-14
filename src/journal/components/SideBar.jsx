@@ -6,7 +6,9 @@ import { useJournalStore } from '../hooks';
 export const SideBar = ({ drawerWidth = 240 }) => {
 
     const { displayName } = useAuthStore();
-    const { } = useJournalStore();
+    const {  notes } = useJournalStore();
+    
+    console.log(notes);
     
 
   return (
