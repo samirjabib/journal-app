@@ -1,9 +1,20 @@
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
+import { useForm } from '../../auth';
 import { ImageGallery } from '../components'
+import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
+
+
+    const { active:note } = useJournalStore(); 
+    const { onInputChange} = useForm();
+
+    console.log(note)
+
+    
+
   return (
     <Grid 
         container direction='row' 
@@ -23,7 +34,7 @@ export const NoteView = () => {
         </Grid>
 
         <Grid container>
-            <TextField 
+            <TextField
                 type="text"
                 variant="filled"
                 fullWidth

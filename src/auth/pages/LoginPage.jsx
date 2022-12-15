@@ -8,7 +8,6 @@ import { startGoogleSignIn } from '../../store';
 import { useState } from 'react';
 
 
-
 const formValidations = {
   email:[ (value)  => value.includes('@'), 'The email must contain a @'],
   password: [ (value) => value.length >= 6, 'Password must contain 6 letters or more.'],

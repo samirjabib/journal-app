@@ -7,7 +7,14 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
 
     useEffect(() => {
         createValidators();
-    }, [ formState ])
+    }, [ formState ]);
+
+    
+    useEffect(() => {
+        setFormState( formState ); //Cada vez que cambia el estado, cambiamos el form, en este caso lo usamos para el noteView. 
+    }, [formState])
+
+
     
     const isFormValid = useMemo( () => {
 
