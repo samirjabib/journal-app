@@ -1,28 +1,34 @@
+import { TurnedInNot } from "@mui/icons-material"
+import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 import { useJournalStore } from "../hooks"
-
-export const SidebarItem = ({title, body, id, date, imageUrls = [] }) => {
-
-
-    const { onClickActiveNote } = useJournalStore()
+import { useMemo } from "react";
 
 
-    const onClickNote = () => {
-        onClickActiveNote ( {title, body, id, date, imageUrls})
-    }
+export const SidebarItem = (note, imageUrls = [] ) => {
 
-    console.log(title, id)
+    const { title, body, id, date } = note;
 
 
-    
-    const newTitle = useMemo( () => { //con esta funcion reducimos el tamaño del title si es muy largo. 
+
+    const { onClickActiveNote  } = useJournalStore()
+
+    const newTitle = useMemo( () => {
         return title.length > 17
             ? title.substring(0,17) + '...'
             : title;
     },[ title ])
 
+
+    const noteActiveHandle = () => {
+        onClickActiveNote( { title, body, id, date, imageUrls })
+    }
+    
+
+
+
     return(
     <ListItem disablePadding>
-        <ListItemButton onClick={ onClickNote }>
+        <ListItemButton onClick={ noteActiveHandle }>
             <ListItemIcon>
                 <TurnedInNot />
             </ListItemIcon>

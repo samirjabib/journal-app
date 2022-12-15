@@ -8,14 +8,9 @@ export const loadNotes = async( uid= '') => { //Recibimos por parametros el uid
 
     const docs = await getDocs(collection(firebaseDB, `${uid}/journal/notes`))
     
-
-    docs.forEach ( doc => {
-        notes.push({id:doc.id, ...doc.data()});
+    docs.forEach ( doc => { //dentro de doc tenemos el metodo .data() que nos trae todos los datos de nuestra coleccion;
+        notes.push({id:doc.id, ...doc.data()}); //Enviamos con el id, y la copia de lo que trae el objeto data. 
     });
-
-    console.log(notes);
-
-
 
     return notes
 }

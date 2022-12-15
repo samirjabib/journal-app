@@ -1,4 +1,4 @@
-import { addNewEmptyNote, savingNewNotes, setActiveNote, setNotes, } from './journalSlice';
+import { addNewEmptyNote, savingNewNotes, setActiveNote, setNotes, updateNote, } from './journalSlice';
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from '../../firebase';
 import { loadNotes } from '../../journal/helpers';
@@ -34,9 +34,6 @@ export const startNewNote = () => {
 export const startLoadingNotes = () => {
     return async( dispatch, getState ) => {
 
-        const stateUser = getState()
-        console.log(stateUser)
-
         const { uid } = getState().auth; //el get state nos permite acceder  a el contenido de la store
 
 
@@ -45,11 +42,27 @@ export const startLoadingNotes = () => {
 
         const notes = await loadNotes( uid ); //Invocamos la funcion para obtener las notas y la guardamos en una variable
 
-        console.log(notes);
 
         dispatch(setNotes(notes));
     }
 }
 
+export const startSaveNote = () => {
+    return async( dispatch, getState ) => {
 
+        const { uid } = getState().auth; //Obtenemos el usuario activo.
+        const { active: note } = getState().journal; //Obtenemos la nota activa
+
+        const noteToFireStore = {...note}; //Pasamos una copia de nuestro evento modificado.
+        delete noteTofireStore.id; //Eliminamos el id con la palabra delete javascript.
+        
+        const docRef = doc(firebaseDB, `${uid}/journal/notes/${note.id}`);  //Buscamos la ruta de la nota mediante su id;
+        await setDoc(docRef, noteToFireStore, {merge:true});
+
+        dispatch(updateNote()) //Pasasamos al payload
+
+
+    }
+
+}
 

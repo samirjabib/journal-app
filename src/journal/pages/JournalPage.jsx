@@ -18,6 +18,8 @@ export const JournalPage = () => {
           : <NothingSelectedView /> 
       }
       
+
+
       <IconButton
         size='large'
         onClick={ onClickNewNote }

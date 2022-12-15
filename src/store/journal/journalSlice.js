@@ -30,15 +30,15 @@ export const journalSlice = createSlice({
         },
         updateNote: ( state, { payload } ) => {
             state.isSaving = false;
-            state.notes = state.notes.map( note => {
-                if(note.id === payload.id){
-                    return payload
+            state.notes = state.notes.map( note => { //Iteramos sobre nuestro estado de notas.
+                if(note.id === payload.id){ //Si encontramos alguna nota que coincida con el payload.
+                    return payload //La remplazamos con el paylload.
                 };
 
-                return note
+                return note //Devolvemos la nota al array.
             });
 
-            state.messageSaved = `${payload.title}, update correctly`
+            state.messageSaved = `${payload.title}, update correctly` //Mostramos la nota que hemos actualizado
         },
     }
 });
