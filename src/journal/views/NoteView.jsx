@@ -1,5 +1,7 @@
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 import { useForm } from '../../auth';
 import { ImageGallery } from '../components'
 import { useJournalStore } from '../hooks';
@@ -8,10 +10,26 @@ import { useJournalStore } from '../hooks';
 export const NoteView = () => {
 
 
-    const { active:note } = useJournalStore(); 
-    const { onInputChange} = useForm();
+    const { active:note, onClickActiveNote, messageSaved  } = useJournalStore(); 
+    const { formState ,onInputChange, body, title, date} = useForm(note);
 
-    console.log(note)
+
+    const dateString = useMemo(() => {
+        const newDate = new Date( date ); //Creamos la nueva fecha.
+        return newDate.toUTCString();//Este metodo nos convierte el date a algo mas lejible por el humano
+    },[date]);
+
+    useEffect( () => {
+        onClickActiveNote(formState); //Actualizamos el valor mostrado cada vez que cambiamos de note;
+    }, [formState]);
+
+
+    useEffect( () => {
+        if(messageSaved.length > 0) {
+            Swal.fire( 'note update', messageSaved) //Mandamos la notificacion de la nota actualizada. 
+        }
+    }, [messageSaved]);
+
 
     
 
@@ -24,7 +42,7 @@ export const NoteView = () => {
         className='animate__animated animate__fadeIn animate__faster'
         >
         <Grid item>
-            <Typography fontSize={ 39 } fontWeight='light' >28 de agosto, 2023</Typography>
+            <Typography fontSize={ 39 } fontWeight='light' >{ dateString }</Typography>
         </Grid>
         <Grid item>
             <Button color="primary" sx={{ padding: 2 }}>
@@ -41,6 +59,9 @@ export const NoteView = () => {
                 placeholder="Ingrese un título"
                 label="Título"
                 sx={{ border: 'none', mb: 1 }}
+                name="title"
+                value={title}
+                onChange={onInputChange}
             />
 
             <TextField 
@@ -50,6 +71,9 @@ export const NoteView = () => {
                 multiline
                 placeholder="¿Qué sucedió en el día de hoy?"
                 minRows={ 5 }
+                name="body"
+                value={body}
+                onChange={onInputChange}
             />
         </Grid>
 
