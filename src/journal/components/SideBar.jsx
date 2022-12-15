@@ -7,8 +7,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
     const { displayName } = useAuthStore();
     const {  notes } = useJournalStore();
-    
-    
+
 
   return (
     <Box
@@ -33,7 +32,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             <List>
                 {
                    notes.map( note => {
-                    <SidebarItem key={notes.id} {...notes}/>
+                    <SidebarItem key={notes.id} {...note}/>
                    })
                 }
             </List>

@@ -10,6 +10,8 @@ export const SidebarItem = ({title, body, id, date, imageUrls = [] }) => {
         onClickActiveNote ( {title, body, id, date, imageUrls})
     }
 
+    console.log(title, id)
+
 
     
     const newTitle = useMemo( () => { //con esta funcion reducimos el tamaño del title si es muy largo. 

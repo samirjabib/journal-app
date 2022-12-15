@@ -9,6 +9,8 @@ export const useJournalStore = () => {
     const dispatch = useDispatch();
     const { isSaving, active, notes, setActiveNote } = useSelector( state => state.journal )
 
+    console.log(active, 'nota activa')
+
 
     const onClickNewNote = () => {
         dispatch( startNewNote() )
