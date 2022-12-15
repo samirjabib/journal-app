@@ -2,7 +2,6 @@ import { addNewEmptyNote, deleteNotesById, savingNewNotes, setActiveNote, setNot
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from '../../firebase';
 import { loadNotes } from '../../journal/helpers';
-import { FileUpload } from '@mui/icons-material';
 
 
 export const startNewNote = () => {
@@ -55,7 +54,7 @@ export const startSaveNote = () => {
         const { active: note } = getState().journal; //Obtenemos la nota activa
 
         const noteToFireStore = {...note}; //Pasamos una copia de nuestro evento modificado.
-        delete noteTofireStore.id; //Eliminamos el id con la palabra delete javascript.
+        delete noteToFireStore.id; //Eliminamos el id con la palabra delete javascript.
         
         const docRef = doc(firebaseDB, `${uid}/journal/notes/${note.id}`);  //Buscamos la ruta de la nota mediante su id;
         await setDoc(docRef, noteToFireStore, {merge:true});
@@ -66,7 +65,7 @@ export const startSaveNote = () => {
 
 
 export const startUploadingFiles = ( files = []) => {
-    return async ( dispatch ) => {
+    return async ( dispatch ) => { 
         dispatch( setSaving());
 
         //await fileUpload
