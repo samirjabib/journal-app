@@ -1,7 +1,8 @@
-import { addNewEmptyNote, savingNewNotes, setActiveNote, setNotes, updateNote, } from './journalSlice';
+import { addNewEmptyNote, deleteNotesById, savingNewNotes, setActiveNote, setNotes, setPhotosToActiveNote, updateNote, } from './journalSlice';
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from '../../firebase';
 import { loadNotes } from '../../journal/helpers';
+import { FileUpload } from '@mui/icons-material';
 
 
 export const startNewNote = () => {
@@ -60,9 +61,35 @@ export const startSaveNote = () => {
         await setDoc(docRef, noteToFireStore, {merge:true});
 
         dispatch(updateNote()) //Pasasamos al payload
+    };
+};
 
 
+export const startUploadingFiles = ( files = []) => {
+    return async ( dispatch ) => {
+        dispatch( setSaving());
+
+        //await fileUpload
+        const fileUploadPromises = [];
+    for( const file of files) {
+        fileUploadPromises.push( fileUpload(file));
+
+        const photUrls = await Promise.all(fileUploadPromises);
+
+        dispatch( setPhotosToActiveNote( photoUrls)) 
     }
-
+    }
 }
 
+
+export const startDeletingNote = () => {
+    return async( dispatch, getState) => {
+        const { uid } = getState().auth;
+        const { active: note } = getState().journal;
+
+        const docRef = doc(firebaseDB, `${uid}/journal/notes/${note.id}`);  //Buscamos la ruta de la nota mediante su id;
+        await deleteDoc( docRef);
+
+        dispatch(deleteNotesById(note.id));
+    }
+}

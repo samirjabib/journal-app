@@ -40,6 +40,20 @@ export const journalSlice = createSlice({
 
             state.messageSaved = `${payload.title}, update correctly` //Mostramos la nota que hemos actualizado
         },
+        setPhotosToActiveNote: ( state, { payload }) => {
+            state.active.imageUrls = [...state.active.imageUrls, payload] //Le sumamos el payload a el array y enviamos un nuevo estado.
+            state.isSaving = false;
+        },
+
+        clearNotesLogout : ( state) => {
+            state.isSaving = false;
+            state.messageSaved = '',
+            state.notes = [];
+        },
+        deleteNotesById: ( state, { payload } ) => {
+            state.active = null;
+            state.notes = state.notes.filter( note => note.id !== payload ) //Usamos el metodo filter si alguna nota conindice con nuestro payload, la filtramos del array.
+        }
     }
 });
 
@@ -50,4 +64,7 @@ export const {
     setNotes,
     setSaving,
     updateNote,
+    clearNotesLogout,
+    deleteNotesById,
+    setPhotosToActiveNote
 } = journalSlice.actions; //exportamos las acciones para usarlas en el thunk
