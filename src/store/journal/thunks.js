@@ -78,8 +78,11 @@ export const startUploadingFiles = ( files ) => { //Pasaremos un array vacio com
 
         dispatch( setSaving() );
         
+        const fileUploadPromises = [];
+        for( const file of files ){
+            console.log(file)
+        }
 
-        console.log(files)
         
     }
 }
