@@ -12,9 +12,10 @@ import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
-    const { active:note,  messageSaved, onClickActiveNote  } = useJournalStore(); 
+    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote  } = useJournalStore(); 
 
     const { onInputChange ,body, title, date, formState } = useForm(note);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -31,11 +32,17 @@ export const NoteView = () => {
     }, []);
 
 
+
     useEffect( () => {
         if(messageSaved.length > 0) {
             Swal.fire( 'note update', messageSaved) //Mandamos la notificacion de la nota actualizada. 
         }
     }, [messageSaved]);
+
+    const updateHandle = () => {
+        onUpdateNote()
+        console.log('up from updateHandle')
+    }
 
 
     
@@ -52,7 +59,11 @@ export const NoteView = () => {
             <Typography fontSize={ 39 } fontWeight='light' >{ dateString }</Typography>
         </Grid>
         <Grid item>
-            <Button color="primary" sx={{ padding: 2 }}>
+            <Button 
+                color="primary" 
+                sx={{ padding: 2 }}
+                onClick= {updateHandle}
+                >
                 <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
                 Guardar
             </Button>

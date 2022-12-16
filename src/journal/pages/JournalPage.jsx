@@ -4,10 +4,17 @@ import { AddOutlined } from '@mui/icons-material';
 import { JournalLayout } from '../layout/JournalLayout';
 import { NoteView, NothingSelectedView } from '../views';
 import { useJournalStore } from '../hooks/useJournalStore';
+import { useEffect } from 'react';
 
 export const JournalPage = () => {
 
-  const { onClickNewNote, isSaving, active } = useJournalStore();
+  const { onClickNewNote, isSaving, active  } = useJournalStore();
+
+  console.log(isSaving)
+
+
+
+  
   
   return (
     <JournalLayout className='animate__animated animate__fadeIn animate__faster'>
@@ -32,7 +39,7 @@ export const JournalPage = () => {
           right: 50,
           bottom: 50
         }}
-
+        
       >
         <AddOutlined sx={{ fontSize: 30 }} />
       </IconButton>

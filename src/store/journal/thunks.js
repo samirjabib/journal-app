@@ -1,4 +1,4 @@
-import { addNewEmptyNote, deleteNotesById, savingNewNotes, setActiveNote, setNotes, setPhotosToActiveNote, updateNote, } from './journalSlice';
+import { addNewEmptyNote, deleteNotesById, savingNewNotes, setActiveNote, setNotes, setPhotosToActiveNote, updateNote,  setSaving} from './journalSlice';
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from '../../firebase';
 import { loadNotes } from '../../journal/helpers';
@@ -7,6 +7,7 @@ import { loadNotes } from '../../journal/helpers';
 export const startNewNote = () => {
     
     return async(dispatch, getState) => { //Usamos la otra funcion del thunk para acceder a el estado actual de la store 
+
         dispatch( savingNewNotes());
 
         // const stateUser = getState() /El getState nos permite obtener el estado actual de nuestro storage. 
@@ -50,8 +51,14 @@ export const startLoadingNotes = () => {
 export const startSaveNote = () => {
     return async( dispatch, getState ) => {
 
+
+        dispatch(setSaving())
+
         const { uid } = getState().auth; //Obtenemos el usuario activo.
-        const { active: note } = getState().journal; //Obtenemos la nota activa
+
+        const { active:note } = getState().journal; //Obtenemos la nota activa.
+        
+        console.log(note)
 
         const noteToFireStore = {...note}; //Pasamos una copia de nuestro evento modificado.
         delete noteToFireStore.id; //Eliminamos el id con la palabra delete javascript.
@@ -59,7 +66,7 @@ export const startSaveNote = () => {
         const docRef = doc(firebaseDB, `${uid}/journal/notes/${note.id}`);  //Buscamos la ruta de la nota mediante su id;
         await setDoc(docRef, noteToFireStore, {merge:true});
 
-        dispatch(updateNote()) //Pasasamos al payload
+        dispatch(updateNote(note)) //Pasasamos al payload
     };
 };
 
