@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 
 export const useForm = ( initialForm = {}, formValidations = {}) => {
-  
     const [ formState, setFormState ] = useState( initialForm );
     const [ formValidation, setFormValidation ] = useState({});
-    console.log(formState)
                   
     useEffect(() => {
         setFormState( initialForm ); //Cada vez que cambia el estado, cambiamos el form, en este caso lo usamos para el noteView. 

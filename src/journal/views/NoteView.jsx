@@ -12,23 +12,14 @@ import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
-  
-
-
     const { active:note,  messageSaved, onClickActiveNote  } = useJournalStore(); 
-    console.log(note, 'noteview console.log');
 
     const { onInputChange ,body, title, date, formState } = useForm(note);
     const dispatch = useDispatch();
 
-    
     useEffect(() => {
         dispatch( setActiveNote(formState) ); //
     }, [formState])
-    
-    console.log(formState )
-
-
 
     const dateString = useMemo(() => {
         const newDate = new Date( date ); //Creamos la nueva fecha.

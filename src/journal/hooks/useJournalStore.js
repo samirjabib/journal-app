@@ -13,7 +13,6 @@ export const useJournalStore = () => {
 
 
 
-    console.log(active, 'active')
     
 
 
