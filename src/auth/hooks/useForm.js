@@ -4,18 +4,16 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
   
     const [ formState, setFormState ] = useState( initialForm );
     const [ formValidation, setFormValidation ] = useState({});
+    console.log(formState)
+                  
+    useEffect(() => {
+        setFormState( initialForm ); //Cada vez que cambia el estado, cambiamos el form, en este caso lo usamos para el noteView. 
+    }, [initialForm])
 
     useEffect(() => {
         createValidators();
     }, [ formState ]);
 
-    
-    useEffect(() => {
-        setFormState( formState ); //Cada vez que cambia el estado, cambiamos el form, en este caso lo usamos para el noteView. 
-    }, [formState])
-
-
-    
     const isFormValid = useMemo( () => {
 
         for (const formValue of Object.keys( formValidation )) {
@@ -40,7 +38,6 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
     }
 
     const createValidators = () => {
-        
         const formCheckedValues = {};
         
         for (const formField of Object.keys( formValidations )) {
@@ -48,18 +45,23 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
 
             formCheckedValues[`${ formField }Valid`] = fn( formState[formField] ) ? null : errorMessage;
         }
-
         setFormValidation( formCheckedValues );
+
+  
     }
 
     return {
-        
-        ...formState,
+        //Propierties
+
         formState,
+        ...formState,
+        isFormValid,
+        ...formValidation,
+
+        //methods
+
         onInputChange,
         onResetForm,
-
-        ...formValidation,
-        isFormValid
+       
     }
 }

@@ -1,17 +1,33 @@
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { useForm } from '../../auth';
+
+import { useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { useForm } from '../../auth/hooks/useForm';
+import { setActiveNote } from '../../store';
 import { ImageGallery } from '../components'
 import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
+  
 
 
-    const { active:note, onClickActiveNote, messageSaved  } = useJournalStore(); 
-    const { formState ,onInputChange, body, title, date} = useForm(note);
+    const { active:note,  messageSaved, onClickActiveNote  } = useJournalStore(); 
+    console.log(note, 'noteview console.log');
+
+    const { onInputChange ,body, title, date, formState } = useForm(note);
+    const dispatch = useDispatch();
+
+    
+    useEffect(() => {
+        dispatch( setActiveNote(formState) ); //
+    }, [formState])
+    
+    console.log(formState )
+
 
 
     const dateString = useMemo(() => {
@@ -20,8 +36,8 @@ export const NoteView = () => {
     },[date]);
 
     useEffect( () => {
-        onClickActiveNote(formState); //Actualizamos el valor mostrado cada vez que cambiamos de note;
-    }, [formState]);
+        onClickActiveNote({...note})
+    }, []);
 
 
     useEffect( () => {

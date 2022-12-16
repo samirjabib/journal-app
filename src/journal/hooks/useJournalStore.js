@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
 import { startNewNote,  setActiveNote, startSaveNote  } from '../../store'
@@ -6,17 +7,25 @@ import { startNewNote,  setActiveNote, startSaveNote  } from '../../store'
 
 export const useJournalStore = () => {
 
-    const dispatch = useDispatch();
     const { isSaving, active, notes, messageSaved  } = useSelector( state => state.journal );
+
+    const dispatch = useDispatch();
+
+
+
+    console.log(active, 'active')
+    
 
 
     const onClickNewNote = () => {
-        dispatch( startNewNote() )
+        dispatch(startNewNote());
     };
 
+
     const onClickActiveNote = ({ title, body, id, date, imageUrls }) => {
-        dispatch(setActiveNote({ title, body, id, date, imageUrls }))
+        dispatch(setActiveNote({title, body, id, date, imageUrls}))
     };
+ 
 
     const onUpdateNote = () => {
         dispatch( startSaveNote());
