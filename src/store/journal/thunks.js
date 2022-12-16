@@ -75,14 +75,18 @@ export const startSaveNote = () => {
 
 export const startUploadingFiles = ( files ) => { //Pasaremos un array vacio como parametro inicial para evitar errores.
     return async( dispatch ) => {
-
         dispatch( setSaving() );
-        
+            
+        // await fileUpload( files[0] );
         const fileUploadPromises = [];
-        for( const file of files ){
-            console.log(file)
+        for ( const file of files ) {
+            fileUploadPromises.push( fileUpload( file ) )
         }
 
+        const photosUrls = await Promise.all( fileUploadPromises );
+        
+        console.log(photosUrls)
+        dispatch( setPhotosToActiveNote( photosUrls ));
         
     }
 }
