@@ -16,9 +16,10 @@ export const startNewNote = () => {
         const { uid } = getState().auth //Extraemos el id del el auth actual de la aplicacion.
  
         const newNote = { //Creamos la nueva nota dummie dta. 
-            title:'me tiran heig',
-            body:'pero se va a folmar',
+            title:'',
+            body:'',
             date: new Date().getTime(),
+            imageUrls:[]
         };
 
         const newDoc = doc( collection( firebaseDB, `${ uid }/journal/notes`) ); // doc recibe como parametro la coleccion, la cual recibe la db y el path que queremos que tenga nuestra coleccion
@@ -73,19 +74,13 @@ export const startSaveNote = () => {
 
 
 export const startUploadingFiles = ( files ) => { //Pasaremos un array vacio como parametro inicial para evitar errores.
-    return async ( dispatch ) => {  //Usamos la funcion dispatch para tirar los reducers del slice. 
-        // dispatch( setSaving()); //Cambiamos a true el saving para evitar los doble clicks. 
+    return async( dispatch ) => {
 
-        // await fileUpload( files[0] );
+        dispatch( setSaving() );
+        
 
-        const fileUploadPromises = [];
-
-        for( const file of files) { //iteramos sobre todos los files 
-            fileUploadPromises.push( fileUpload(file));  //De los cuales iremos agregando a nuestro array, aqui tendremos una promesa, ya que tenemso que esperar que el fileUpload resuelva en cada iteraccion. 
-        }
-
-        const photoUrls = await Promise.all(fileUploadPromises); //Creamos un arreglo con todas las cosas que vamos a ir trallendo de nuestro fileUploadin
-        console.log(photoUrls)
+        console.log(files)
+        
     }
 }
 

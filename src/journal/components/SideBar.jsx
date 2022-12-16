@@ -31,8 +31,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             <List>
                 {
                    notes.map( note => {
+
+                    const noteWithImg = {
+                        ...note,
+                        imageUrl:[]
+                    }
+                    
                     return(
-                        <SidebarItem key={note.id} {...note} />
+                        <SidebarItem key={note.id} {...noteWithImg} />
                     )
                    })
                 }

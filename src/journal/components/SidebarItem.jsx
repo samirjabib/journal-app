@@ -4,9 +4,9 @@ import { useJournalStore } from "../hooks"
 import { useMemo } from "react";
 
 
-export const SidebarItem = (note, imageUrls = [] ) => {
+export const SidebarItem = (note) => {
 
-    const { title, body, id, date } = note;
+    const { title ='' , body = '' , id, date, imageUrls = [] } = note;
 
 
 

@@ -48,11 +48,9 @@ export const NoteView = () => {
     }
 
     const onFileInputChange = ({ target }) => { //Desectructuramos files.target que es donde vienen los tipos de archivos que seleccionamos
-        if (target.files === 0 ) return; //Con el objeto files del target recibimos lo que subimos con el browser de windows.
-
-        const files = target.files
+        if (target.files === 0 ) return //Con el objeto files del target recibimos lo que subimos con el browser de windows.
+        const files = target.files;
         onUploadNewFiles(files)
-       
     }
 
 
@@ -74,11 +72,10 @@ export const NoteView = () => {
                 {/* Con el input file y la propiedad multiple habilitamos para que se puedan escoder multiples obsciones. */}
             <input type='file'
             multiple
-            onChange={onInputChange}
+            onChange={onFileInputChange}
             sx={{ padding: 2 }}
             style={{display:'none'}}
             ref = { fileInputRef }
-            onClick={onFileInputChange}
             />
 
             <IconButton

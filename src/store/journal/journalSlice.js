@@ -40,8 +40,8 @@ export const journalSlice = createSlice({
 
             state.messageSaved = `${payload.title}, update correctly` //Mostramos la nota que hemos actualizado
         },
-        setPhotosToActiveNote: ( state, { payload }) => {
-            state.active.imageUrls = [...state.active.imageUrls, ...payload] //Le sumamos el payload a el array y enviamos un nuevo estado.
+        setPhotosToActiveNote: (state, { payload}) => {
+            state.active.imageUrls = [ ...state.active.imageUrls, ...payload ]; 
             state.isSaving = false;
         },
 
