@@ -1,8 +1,8 @@
-import { SaveOutlined } from '@mui/icons-material';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { SaveOutlined, UploadFile } from '@mui/icons-material';
+import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useForm } from '../../auth/hooks/useForm';
@@ -12,9 +12,11 @@ import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
-    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote  } = useJournalStore(); 
+    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote , isSaving } = useJournalStore(); 
 
     const { onInputChange ,body, title, date, formState } = useForm(note);
+
+    const fileInputRef = useRef();
 
     const dispatch = useDispatch();
 
@@ -39,9 +41,19 @@ export const NoteView = () => {
         }
     }, [messageSaved]);
 
+    
+
     const updateHandle = () => {
         onUpdateNote()
         console.log('up from updateHandle')
+    }
+
+    const onFileInputChange = ({ target }) => { //Desectructuramos files.target que es donde vienen los tipos de archivos que seleccionamos
+        if (target.files === 0 ) return; //Con el objeto files del target recibimos lo que subimos con el browser de windows. 
+
+        console.log(target.files)
+        
+        
     }
 
 
@@ -59,6 +71,24 @@ export const NoteView = () => {
             <Typography fontSize={ 39 } fontWeight='light' >{ dateString }</Typography>
         </Grid>
         <Grid item>
+                {/* Con el input file y la propiedad multiple habilitamos para que se puedan escoder multiples obsciones. */}
+            <input type='file'
+            multiple
+            onChange={onInputChange}
+            sx={{ padding: 2 }}
+            style={{display:'none'}}
+            ref = { fileInputRef }
+            onClick={onFileInputChange}
+            />
+
+            <IconButton
+                color="primary"
+                disabled = { isSaving }
+                onClick = { () => fileInputRef.current.click()}
+                                                        //Señalamos este icono para darle la funcionalidad del input que esconderemos con un ref. 
+            >
+                <UploadFile sx={{ fontSize: 30, mr: 1 }} />
+            </IconButton>
             <Button 
                 color="primary" 
                 sx={{ padding: 2 }}

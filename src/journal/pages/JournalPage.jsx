@@ -10,7 +10,6 @@ export const JournalPage = () => {
 
   const { onClickNewNote, isSaving, active  } = useJournalStore();
 
-  console.log(isSaving)
 
 
 
