@@ -12,7 +12,7 @@ import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
-    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote , isSaving } = useJournalStore(); 
+    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote , isSaving, onUploadNewFiles } = useJournalStore(); 
 
     const { onInputChange ,body, title, date, formState } = useForm(note);
 
@@ -45,16 +45,16 @@ export const NoteView = () => {
 
     const updateHandle = () => {
         onUpdateNote()
-        console.log('up from updateHandle')
     }
 
     const onFileInputChange = ({ target }) => { //Desectructuramos files.target que es donde vienen los tipos de archivos que seleccionamos
-        if (target.files === 0 ) return; //Con el objeto files del target recibimos lo que subimos con el browser de windows. 
+        if (target.files === 0 ) return; //Con el objeto files del target recibimos lo que subimos con el browser de windows.
 
-        console.log(target.files)
-        
-        
+        const files = target.files
+        onUploadNewFiles(files)
+       
     }
+
 
 
     

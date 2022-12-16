@@ -1,7 +1,11 @@
 import { ImageListItem, ImageList } from '@mui/material';
+import { useJournalStore } from '../hooks';
 
 
 export const ImageGallery = () => {
+
+  const { active  }  = useJournalStore();
+  
 
   return (
     <ImageList sx={{ width: '100%', height: 500 }} cols={4} rowHeight={200}>

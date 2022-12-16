@@ -2,6 +2,7 @@ import { addNewEmptyNote, deleteNotesById, savingNewNotes, setActiveNote, setNot
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { firebaseDB } from '../../firebase';
 import { loadNotes } from '../../journal/helpers';
+import { fileUpload } from '../../helpers/fileUpload';
 
 
 export const startNewNote = () => {
@@ -71,19 +72,20 @@ export const startSaveNote = () => {
 };
 
 
-export const startUploadingFiles = ( files = []) => {
-    return async ( dispatch ) => { 
-        dispatch( setSaving());
+export const startUploadingFiles = ( files ) => { //Pasaremos un array vacio como parametro inicial para evitar errores.
+    return async ( dispatch ) => {  //Usamos la funcion dispatch para tirar los reducers del slice. 
+        // dispatch( setSaving()); //Cambiamos a true el saving para evitar los doble clicks. 
 
-        //await fileUpload
+        // await fileUpload( files[0] );
+
         const fileUploadPromises = [];
-    for( const file of files) {
-        fileUploadPromises.push( fileUpload(file));
 
-        const photUrls = await Promise.all(fileUploadPromises);
+        for( const file of files) { //iteramos sobre todos los files 
+            fileUploadPromises.push( fileUpload(file));  //De los cuales iremos agregando a nuestro array, aqui tendremos una promesa, ya que tenemso que esperar que el fileUpload resuelva en cada iteraccion. 
+        }
 
-        dispatch( setPhotosToActiveNote( photoUrls)) 
-    }
+        const photoUrls = await Promise.all(fileUploadPromises); //Creamos un arreglo con todas las cosas que vamos a ir trallendo de nuestro fileUploadin
+        console.log(photoUrls)
     }
 }
 
@@ -98,4 +100,5 @@ export const startDeletingNote = () => {
 
         dispatch(deleteNotesById(note.id));
     }
-}
+};
+
