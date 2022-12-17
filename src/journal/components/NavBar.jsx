@@ -6,7 +6,7 @@ import { useAuthStore } from '../../auth/hooks';
 export const NavBar = ({ drawerWidth = 240 }) => {
 
 
-    const { startLogout  , status} = useAuthStore();
+    const { onLogoutHandle  , status} = useAuthStore();
 
 
 
@@ -31,7 +31,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
             <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                 <Typography variant='h6' noWrap component='div'> JournalApp </Typography>
 
-                <IconButton color='error' onClick={ startLogout() }>
+                <IconButton color='error' onClick={ onLogoutHandle }>
                     <LogoutOutlined />
                 </IconButton>
             </Grid>

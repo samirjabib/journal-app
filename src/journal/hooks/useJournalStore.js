@@ -32,6 +32,7 @@ export const useJournalStore = () => {
     const onDeleteNote = () => {
         dispatch(startDeletingNote());
     }
+    
 
     return{
         //Propietes

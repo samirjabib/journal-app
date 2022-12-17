@@ -34,7 +34,6 @@ export const NoteView = () => {
     }, []);
 
 
-
     useEffect( () => {
         if(messageSaved.length > 0) {
             Swal.fire( 'note update', messageSaved) //Mandamos la notificacion de la nota actualizada. 

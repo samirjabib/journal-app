@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { startGoogleSignIn, startLoginWithEmailAndPasssword, startRegisterWithEmailAndPassword, startLogout, } from '../../store';
+import { startGoogleSignIn, startLoginWithEmailAndPasssword, startRegisterWithEmailAndPassword, startLogout, clearNotesLogout } from '../../store';
 
 
 export const useAuthStore = () => {
 
     const { status, errorMessage, displayName, photoURL } = useSelector(state => state.auth);
+
+    
     const dispatch = useDispatch();
 
 
@@ -22,7 +24,8 @@ export const useAuthStore = () => {
     }
 
 
-    const onLogout = () => {
+    const onLogoutHandle = () => {
+        dispatch(clearNotesLogout());
         dispatch(startLogout());
     }
 
@@ -34,7 +37,7 @@ export const useAuthStore = () => {
 
         //Methods
         onGoogleSign,
-        startLogout,
+        onLogoutHandle,
         onLoginEmailAndPassword,
         onRegisterWithEmailAndPassword,
     }
