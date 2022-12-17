@@ -1,4 +1,4 @@
-import { SaveOutlined, UploadFile } from '@mui/icons-material';
+import { DeleteOutline, SaveOutlined, UploadFile } from '@mui/icons-material';
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 
@@ -12,7 +12,7 @@ import { useJournalStore } from '../hooks';
 
 
 export const NoteView = () => {
-    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote , isSaving, onUploadNewFiles } = useJournalStore(); 
+    const { active:note,  messageSaved, onClickActiveNote, onUpdateNote , isSaving, onUploadNewFiles, onDeleteNote } = useJournalStore(); 
 
     const { onInputChange ,body, title, date, formState } = useForm(note);
 
@@ -121,6 +121,19 @@ export const NoteView = () => {
                 onChange={onInputChange}
             />
         </Grid>
+
+
+        <Grid container justifyContent='end'>
+                <Button
+                    onClick={ onDeleteNote }
+                    sx={{ mt: 2 }}
+                    color="error"
+                >
+                    <DeleteOutline />
+                    Borrar
+                </Button>
+        </Grid>
+
 
         {/* Image gallery */}
         <ImageGallery />

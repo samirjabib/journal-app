@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
-import { startNewNote,  setActiveNote, startSaveNote, setSaving, startUploadingFiles  } from '../../store'
+import { startNewNote,  setActiveNote, startSaveNote, startUploadingFiles, startDeletingNote  } from '../../store'
 
 
 
@@ -29,6 +29,10 @@ export const useJournalStore = () => {
         dispatch(startSaveNote());
     };
 
+    const onDeleteNote = () => {
+        dispatch(startDeletingNote());
+    }
+
     return{
         //Propietes
         isSaving,
@@ -41,6 +45,7 @@ export const useJournalStore = () => {
         onClickNewNote,
         onClickActiveNote,
         onUpdateNote,
+        onDeleteNote,
         startNewNote,
     }
 }

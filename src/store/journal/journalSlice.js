@@ -46,13 +46,13 @@ export const journalSlice = createSlice({
             state.isSaving = false;
         },
 
-        clearNotesLogout : ( state) => {
+        clearNotesLogout : ( state) => { //Ponemos lso valores por default
             state.isSaving = false;
             state.messageSaved = '',
             state.notes = [];
         },
         deleteNotesById: ( state, { payload } ) => {
-            state.active = null;
+            state.active = null; //reseteamos el active a null
             state.notes = state.notes.filter( note => note.id !== payload ) //Usamos el metodo filter si alguna nota conindice con nuestro payload, la filtramos del array.
         }
     }
